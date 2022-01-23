@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  name: string;
 
   constructor(private _router: Router) { }
 
   ngOnInit(): void {
+    this.name = "Rad";
 
   }
 

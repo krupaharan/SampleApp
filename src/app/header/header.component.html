@@ -7,10 +7,23 @@
     />
     <!-- <span style="padding: 20px;font-size: larger;">Welcome {{this.userName}}!</span> -->
    <div class="spacer"></div>
-      <p>Rad</p>
-      <span class="material-icons" (click)="onLogout()" style="color: white;padding: 20px;cursor: pointer;">
+      <!-- <span class="material-icons" (click)="onLogout()" style="color: white;padding: 20px;cursor: pointer;">
         power_settings_new
-        </span>
+        </span> -->
+
+       <!-- not responsive yet -->
+      <nav>
+        <ul id="main">
+          <li>{{name}}
+            <ul class="drop">
+              <div>
+              <li>Settings</li>
+              <li>Logout</li>
+              </div>
+            </ul>
+          </li>
+        </ul>
+</nav>
 
 </div>
 

@@ -1,24 +1,24 @@
-:host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+// :host {
+//     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+//     font-size: 14px;
+//     color: #333;
+//     box-sizing: border-box;
+//     -webkit-font-smoothing: antialiased;
+//     -moz-osx-font-smoothing: grayscale;
+//   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
+//   h1,
+//   h2,
+//   h3,
+//   h4,
+//   h5,
+//   h6 {
+//     margin: 8px 0;
+//   }
 
-  p {
-    margin: 0;
-  }
+//   p {
+//     margin: 0;
+//   }
 
   .spacer {
     flex: 1;
@@ -50,88 +50,95 @@
     opacity: 0.8;
   }
 
-  .nav-container {
-    //background-color: #fff;
-    border-radius: 4px;
-    //box-shadow: 0 1px 2px 0 rgba(153,153,153,0.35);
-    padding: 1em;
-    //border: 1px solid #eee;
-    display: block;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
+  $min-width: 120px;
+  $maincolor: #6BBE92;  
+  $secondarycolor: #3E8760;
+  
+  @mixin transform($value){
+    -webkit-transform: ($value);
+       -moz-transform: ($value);
+        -ms-transform: ($value);
+            transform: ($value);
+  }
+  @mixin transition($value){
+    -webkit-transition: ($value);
+       -moz-transition: ($value);
+        -ms-transition: ($value);
+            transition: ($value);
   }
   
-  ul,
-  li {
-    list-style: none;
-    -webkit-padding-start: 0;
+  *{
+    box-sizing: border-box;
   }
-  
-  a {
-    text-decoration: none;
+  body{
+    font-family: 'Open Sans', sans-serif;
+    background: #374954;
     color: white;
-  }
-  
-  //Navigation menu
-  .nav-item {
-    padding: 1em;
-    display: inline;
-  }
-  
-  //Dropdown menu
-  .nav-item-dropdown {
-    position: relative;
-    
-    &:hover > .dropdown-menu {
-      display: block;
-      opacity: 1;
-    }
-  }
-  
-  .dropdown-trigger {
-    position: relative;
-    
-    &:focus + .dropdown-menu {
-      display: block;
-      opacity: 1;
-    }
-    
-    &::after {
-      content: "›";
-      position: absolute;
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      transform: rotate(90deg);
-      top: -5px;
-      right: -20px;
-    }
-  }
-  
-  .dropdown-menu {
-    background-color: white;
-    display: inline-block;
-    text-align: right;
-    position: absolute;
-    top: 2.5rem;
-    right: -10px;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease; 
-    width: 100px;
-  
-    a {
-      color: black;
-    }
-  }
-  
-  .dropdown-menu-item {
-    cursor: pointer;
-    padding: 1em;
     text-align: center;
-    
-    &:hover {
-      background-color: darken(white, 5%);
-    }
   }
+  
+  #main{
+    position: relative;
+    list-style: none;
+    //background: $maincolor;
+    font-weight: 400;
+    font-size: 0;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0;
+    margin: 50px auto;
+    height: 50px;
+    li{
+      font-size: 0.8rem;
+      display: inline-block;
+      position: relative;
+      padding: 15px 20px;
+      cursor: pointer;
+      z-index: 5;
+      min-width: $min-width;
+    }  
+  }
+  li{
+    margin: 0;
+  }
+  .drop{
+      overflow: hidden;
+      list-style: none;
+      position: absolute;
+      padding: 0;
+      width: 100%;
+      left: 0;
+      top: 48px;
+      div{
+        @include transform(translate(0,-100%));
+        @include transition(all 0.5s 0.1s);
+        position: relative;
+      }
+      li{
+        display:block;
+        padding: 0;
+        width: 100%;
+        background:rgb(21,58, 96) !important;
+      }
+    }
+  #marker{
+    height: 6px;
+    background: $secondarycolor !important;
+    position: absolute;
+    bottom: 0;
+    width: $min-width;
+    z-index: 2;
+    @include transition(all 0.35s);
+  }
+  
+  @for $i from 1 through 4{
+    #main li:nth-child(#{$i}){
+      &:hover ul div{
+       @include transform(translate(0,0)); 
+      }
+      &:hover ~ #marker{
+        @include transform(translate(#{(-1+$i)*$min-width},0));
+      }
+    }    
+  }
+  
